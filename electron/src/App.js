@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Tree from "./tree/Tree";
-import Grid from "@material-ui/core/es/Grid/Grid";
+import Grid from "@material-ui/core/Grid";
 import Button from '@material-ui/core/Button';
 import ConnectionModal from "./connection/ConnectionModal";
 
@@ -23,19 +23,23 @@ class App extends Component {
 
     this.openCreateConnection = this.openCreateConnection.bind(this)
 
-	let ipcRenderer = require('electron').ipcRenderer;
-	ipcRenderer.send('ready', 'test');
-	ipcRenderer.on('connected', (event, arg) => {  
-    	console.log(event);
-		console.log('connected')
-	});
+	let ipcRenderer = window.require('electron').ipcRenderer;
 	
-	ipcRenderer.send('set', 'test');
-	ipcRenderer.send('get', 'test');
+	if (ipcRenderer) {
+		ipcRenderer.send('ready', 'test');
+		ipcRenderer.on('connected', (event, arg) => {  
+	    	console.log(event);
+			console.log('connected')
+		});
 	
-	ipcRenderer.on('got', (event, arg) => {
-		console.log(arg)
-	})
+		ipcRenderer.send('set', 'test');
+		ipcRenderer.send('get', 'test');
+	
+		ipcRenderer.on('got', (event, arg) => {
+			console.log(arg)
+		})
+	}
+
   }
 
   openCreateConnection() {

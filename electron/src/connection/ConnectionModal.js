@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Dialog from "@material-ui/core/es/Dialog/Dialog";
-import TextField from "@material-ui/core/es/TextField/TextField";
-import DialogTitle from "@material-ui/core/es/DialogTitle/DialogTitle";
-import Button from "@material-ui/core/es/Button/Button";
-import Grid from "@material-ui/core/es/Grid/Grid";
+import Dialog from "@material-ui/core/Dialog";
+import TextField from "@material-ui/core/TextField";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 class ConnectionModal extends Component {
 

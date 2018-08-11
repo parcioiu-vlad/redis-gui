@@ -1,44 +1,39 @@
 {
-  "name": "redis-gui",
-  "version": "1.0.0",
+  "name": "electron-create-react-app-boilerplate",
+  "version": "0.1.0",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://url.com/repository.git"
-  },
-  "main": "main.js",
-  "scripts": {
-    "prod": "webpack --mode production --config webpack.build.config.js && electron --noDevServer .",
-    "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js --mode development",
-    "build": "webpack --config webpack.build.config.js --mode production",
-    "package": "npm run build && electron-packager ./ --out=./builds --platform=all"
-  },
   "dependencies": {
-    "@material-ui/core": "^1.4.3",
-    "electron": "^1.8.6",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-scripts": "1.1.1",
+    "@material-ui/core": "^1.4.3",
     "redis-ssh": "^1.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
-    "babel-preset-react": "^6.24.1",
-    "babili-webpack-plugin": "^0.1.2",
-    "css-loader": "^0.28.11",
-    "electron": "^1.8.6",
-    "electron-packager": "^12.0.1",
-    "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.4.0",
-    "postcss-cssnext": "^3.1.0",
-    "postcss-import": "^11.1.0",
-    "postcss-loader": "^2.1.4",
-    "postcss-nested": "^3.0.0",
-    "postcss-pxtorem": "^4.0.1",
-    "style-loader": "^0.21.0",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "electron": "^2.0.7",
+    "electron-builder": "^19.52.1",
+    "foreman": "^2.0.0"
+  },
+  "scripts": {
+    "dev": "nf start",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "ebuild": "npm run build && node_modules/.bin/build"
+  },
+  "description": "React Electron App",
+  "homepage": "./",
+  "main": "electron/main.js",
+  "build": {
+    "extends": null,
+    "productName": "redis-gui",
+    "appId": "com.example.app",
+    "electronVersion": "2.0.7",
+    "files": [
+      "build/**/*",
+      "electron/*"
+    ]
   }
 }
