@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Dialog from "@material-ui/core/es/Dialog/Dialog";
-import TextField from "@material-ui/core/es/TextField/TextField";
-import DialogTitle from "@material-ui/core/es/DialogTitle/DialogTitle";
-import Button from "@material-ui/core/es/Button/Button";
-import Grid from "@material-ui/core/es/Grid/Grid";
+import Dialog from "@material-ui/core/Dialog";
+import TextField from "@material-ui/core/TextField";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 class ConnectionModal extends Component {
 
@@ -11,29 +11,23 @@ class ConnectionModal extends Component {
     super();
     this.state = {
       url: "",
-      port: 6379
+      port: 6379,
+      connectionName: ''
     };
+
+    this.ipcRenderer = window.require('electron').ipcRenderer;
 
     this.createConnection = this.createConnection.bind(this);
     this.handleChange = this.handleChange.bind(this)
   }
 
   createConnection() {
-    let url = this.state.url + ":" + this.state.port;
-
-    fetch('http://localhost:9090/rest/v1/connections/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: url
-    }).then(function(response) {
-      console.log(response);
-    }).catch(function(error) {
-      console.log(error);
-    });
-
+    let connection = {
+      host: this.state.url,
+      port: this.state.port,
+      connectionName: this.state.connectionName
+    };
+    this.ipcRenderer.send('createConnection', connection);
   }
 
   handleChange(name, event) {
@@ -48,6 +42,13 @@ class ConnectionModal extends Component {
           <DialogTitle id="dialog-title">Create connection</DialogTitle>
           <form noValidate autoComplete="off">
             <Grid item xs={12}>
+              <TextField
+                  id="name"
+                  label="Connection name"
+                  value={this.state.connectionName}
+                  margin="normal"
+                  onChange={(event) => this.handleChange("connectionName", event)}
+              />
               <TextField
                   id="name"
                   label="URL"

@@ -26,18 +26,7 @@ class App extends Component {
 	let ipcRenderer = window.require('electron').ipcRenderer;
 	
 	if (ipcRenderer) {
-		ipcRenderer.send('ready', 'test');
-		ipcRenderer.on('connected', (event, arg) => {  
-	    	console.log(event);
-			console.log('connected')
-		});
-	
-		ipcRenderer.send('set', 'test');
-		ipcRenderer.send('get', 'test');
-	
-		ipcRenderer.on('got', (event, arg) => {
-			console.log(arg)
-		})
+
 	}
 
   }
