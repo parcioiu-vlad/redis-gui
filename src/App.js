@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Tree from "./tree/Tree";
 import Grid from "@material-ui/core/Grid";
@@ -19,24 +18,33 @@ class App extends Component {
         ]
       },
       showConnectionModal: false
+    };
+
+    this.openCreateConnection = this.openCreateConnection.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+
+    let ipcRenderer = window.require('electron').ipcRenderer;
+
+    if (ipcRenderer) {
+      let self = this;
+      ipcRenderer.on('connected', function (event, arg) {
+        //TODO show success message
+        //TODO add the created connection to tree
+        self.setState({showConnectionModal: false});
+      })
     }
-
-    this.openCreateConnection = this.openCreateConnection.bind(this)
-
-	let ipcRenderer = window.require('electron').ipcRenderer;
-	
-	if (ipcRenderer) {
-
-	}
 
   }
 
   openCreateConnection() {
-    console.log(this.state)
     this.setState(
-        {showConnectionModal: !this.state.showConnectionModal})
+        {showConnectionModal: !this.state.showConnectionModal});
     this.state.showConnectionModal = !this.state.showConnectionModal;
 
+  }
+
+  handleClose() {
+    this.setState({showConnectionModal: false});
   }
 
   render() {
@@ -49,7 +57,8 @@ class App extends Component {
                       onClick={this.openCreateConnection}>
                 Create connection
               </Button>
-              <ConnectionModal open={this.state.showConnectionModal}/>
+              <ConnectionModal open={this.state.showConnectionModal}
+                               onClose={this.handleClose}/>
             </Grid>
 
           </div>

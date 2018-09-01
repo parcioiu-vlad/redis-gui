@@ -4,6 +4,8 @@ import TextField from "@material-ui/core/TextField";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
 
 class ConnectionModal extends Component {
 
@@ -18,7 +20,7 @@ class ConnectionModal extends Component {
     this.ipcRenderer = window.require('electron').ipcRenderer;
 
     this.createConnection = this.createConnection.bind(this);
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
   }
 
   createConnection() {
@@ -40,7 +42,7 @@ class ConnectionModal extends Component {
     return (
         <Dialog open={this.props.open} aria-labelledby="dialog-title">
           <DialogTitle id="dialog-title">Create connection</DialogTitle>
-          <form noValidate autoComplete="off">
+          <DialogContent>
             <Grid item xs={12}>
               <TextField
                   id="name"
@@ -65,11 +67,15 @@ class ConnectionModal extends Component {
                   onChange={(event) => this.handleChange("port", event)}
               />
             </Grid>
-
+          </DialogContent>
+          <DialogActions>
             <Button variant="contained" color="primary" onClick={this.createConnection}>
               Create connection
             </Button>
-          </form>
+            <Button variant="contained" color="primary" onClick={this.props.onClose}>
+              close
+            </Button>
+          </DialogActions>
         </Dialog>
     );
   }
