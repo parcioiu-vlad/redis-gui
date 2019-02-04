@@ -30,6 +30,7 @@ class App extends Component {
       ipcRenderer.on('connected', function (event, arg) {
         //TODO show success message
         //TODO add the created connection to tree
+        alert('connected');
         self.setState({showConnectionModal: false});
       })
     }
